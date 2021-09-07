@@ -23,13 +23,13 @@ def cross_product(vector1,vector2): #向量积
     return np.array([vector1[1]*vector2[2]-vector1[2]*vector2[1],vector1[2]*vector2[0]-vector1[0]*vector2[2],vector1[0]*vector2[1]-vector1[1]*vector2[0]])
 
 def getSeparatingPlane(r_pos,plane,box1:OBB,box2:OBB): #判断在选定的坐标平面是否有分割平面
-    return any((abs(r_pos*plane) >
-        (abs((box1.axisX*box1.half_size[0])*plane) +
-        abs((box1.axisY*box1.half_size[1])*plane) +
-        abs((box1.axisZ*box1.half_size[2])*plane) +
-        abs((box2.axisX*box2.half_size[0])*plane) +
-        abs((box2.axisY*box2.half_size[1])*plane) +
-        abs((box2.axisZ*box2.half_size[2])*plane))))
+    return ((abs(sum(r_pos*plane)) >
+        (abs(sum((box1.axisX*box1.half_size[0])*plane)) +
+        abs(sum((box1.axisY*box1.half_size[1])*plane)) +
+        abs(sum((box1.axisZ*box1.half_size[2])*plane)) +
+        abs(sum((box2.axisX*box2.half_size[0])*plane)) +
+        abs(sum((box2.axisY*box2.half_size[1])*plane)) +
+        abs(sum((box2.axisZ*box2.half_size[2])*plane)))))
 
 def isCollision(box1:OBB,box2:OBB): #判断两个OBB是否发生碰撞
     r_pos=box2.pos-box1.pos
